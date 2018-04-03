@@ -2,7 +2,7 @@
 <extension key="biz.lcdservices.moveparticipant" type="module">
   <file>moveparticipant</file>
   <name>Move Participant</name>
-  <description>Adds an action to the event tab listing allowing the user to move an event reegistration to a different contact record.</description>
+  <description>Adds an action to the event tab listing allowing the user to move an event registration to a different contact record. Also adds an action to the Find Participants search result action list to move multiple participant records.</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Lighthouse Consulting and Design</author>
