@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<menu>
+  <item>
+    <path>civicrm/moveparticipant</path>
+    <page_callback>CRM_LCD_MoveParticipant_Form_MoveParticipant</page_callback>
+    <title>Move Participant</title>
+    <access_arguments>access CiviEvent</access_arguments>
+  </item>
+</menu>
