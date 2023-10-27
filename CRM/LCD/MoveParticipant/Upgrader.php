@@ -3,7 +3,7 @@
 /**
  * Collection of upgrade steps.
  */
-class CRM_LCD_MoveParticipant_Upgrader extends CRM_LCD_MoveParticipant_Upgrader_Base {
+class CRM_LCD_MoveParticipant_Upgrader extends CRM_Extension_Upgrader_Base {
 
   // By convention, functions that look like "function upgrade_NNNN()" are
   // upgrade tasks. They are executed in order (like Drupal's hook_update_N).
@@ -16,14 +16,14 @@ class CRM_LCD_MoveParticipant_Upgrader extends CRM_LCD_MoveParticipant_Upgrader_
 
     //create new activity type
     try {
-      civicrm_api3('activity_type', 'create', array(
+      civicrm_api3('activity_type', 'create', [
         'label' => 'Participant Reassignment',
         'name' => 'participant_reassignment',
         'filter' => 0,
         'is_active' => 1,
         'is_reserved' => 1,
         'weight' => 1000,
-      ));
+      ]);
     }
     catch (CRM_API3_Exception $e) {
       Civi::log()->error('CRM_LCD_MoveParticipant_Upgrader install $e', $e);

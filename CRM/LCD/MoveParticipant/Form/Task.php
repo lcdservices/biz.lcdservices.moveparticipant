@@ -53,20 +53,20 @@ class CRM_LCD_MoveParticipant_Form_Task extends CRM_Event_Form_Task {
    * Build the form object.
    */
   public function buildQuickForm() {
-    $this->addEntityRef('change_contact_id', ts('Select Contact'));
+    $this->addEntityRef('change_contact_id', ts('Select Contact'), [], TRUE);
     $count = count($this->_participantIds);
     $this->assign('count', $count);
 
     // export form elements
     $this->assign('elementNames', $this->getRenderableElementNames());
 
-    $this->addButtons(array(
-      array(
+    $this->addButtons([
+      [
         'type' => 'submit',
         'name' => ts('Submit'),
         'isDefault' => TRUE,
-      ),
-    ));
+      ],
+    ]);
 
     parent::buildQuickForm();
   }
@@ -81,19 +81,19 @@ class CRM_LCD_MoveParticipant_Form_Task extends CRM_Event_Form_Task {
 
     foreach ($this->_participantIds as $participantId) {
       try {
-        $currentContactId = civicrm_api3('participant', 'getvalue', array(
+        $currentContactId = civicrm_api3('participant', 'getvalue', [
           'id' => $participantId,
           'return' => 'contact_id',
-        ));
+        ]);
       }
       catch (CiviCRM_API3_Exception $e) {}
 
-      $params = array(
+      $params = [
         'change_contact_id' => $values['change_contact_id'],
         'contact_id' => $values['change_contact_id'],
         'participant_id' => $participantId,
         'current_contact_id' => $currentContactId,
-      );
+      ];
 
       if (CRM_LCD_MoveParticipant_BAO_MoveParticipant::moveParticipant($params)) {
         $moved++;
@@ -104,17 +104,17 @@ class CRM_LCD_MoveParticipant_Form_Task extends CRM_Event_Form_Task {
     }
 
     if ($moved) {
-      CRM_Core_Session::setStatus(ts('%count participant moved.', array(
+      CRM_Core_Session::setStatus(ts('%count participant moved.', [
         'plural' => '%count participants moved.',
         'count' => $moved
-      )), ts('Moved'), 'success');
+      ]), ts('Moved'), 'success');
     }
 
     if ($failed) {
-      CRM_Core_Session::setStatus(ts('1 could not be moved.', array(
+      CRM_Core_Session::setStatus(ts('1 could not be moved.', [
         'plural' => '%count could not be moved.',
         'count' => $failed
-      )), ts('Error'), 'error');
+      ]), ts('Error'), 'error');
     }
 
     parent::postProcess();
@@ -133,7 +133,7 @@ class CRM_LCD_MoveParticipant_Form_Task extends CRM_Event_Form_Task {
     // auto-rendered in the loop -- such as "qfKey" and "buttons".  These
     // items don't have labels.  We'll identify renderable by filtering on
     // the 'label'.
-    $elementNames = array();
+    $elementNames = [];
     foreach ($this->_elements as $element) {
       /** @var HTML_QuickForm_Element $element */
       $label = $element->getLabel();
